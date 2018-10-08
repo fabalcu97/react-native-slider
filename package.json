@@ -1,6 +1,6 @@
 {
   "name": "react-native-slider-tooltip",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A pure JavaScript <Slider /> component for react-native",
   "main": "lib/Slider.js",
   "files": [
@@ -19,7 +19,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "start": "node_modules/react-native/packager/packager.sh",
-    "build": "babel src --out-dir /Users/fabalcu97/Repositories/Inka-Labs/unicuenta/node_modules/react-native-slider-tooltip/lib --watch",
+    "buildDev": "babel src --out-dir /Users/fabalcu97/Repositories/Inka-Labs/unicuenta/node_modules/react-native-slider-tooltip/lib --watch",
+    "build": "babel src --out-dir lib",
     "prepublish": "npm run clean && npm run build"
   },
   "repository": {
