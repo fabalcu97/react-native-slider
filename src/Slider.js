@@ -286,8 +286,9 @@ export default class Slider extends PureComponent {
       ...valueVisibleStyle,
     };
 
-    console.log((this.props.value <= this.props.limitValue))
-    const touchOverflowStyle = this._getTouchOverflowStyle();
+    const maxTrack = {
+      width: (this.props.limitValue && this.props.value > this.props.limitValue) ? thumbLimit : thumbLeft,
+    };
     return (
       <View
         {...other}
@@ -304,23 +305,22 @@ export default class Slider extends PureComponent {
           onLayout={this._measureTrack}
         />
         <Animated.View
-          renderToHardwareTextureAndroid
-          style={[mainStyles.track, trackStyle, minimumTrackStyle]}
+          style={[mainStyles.track, trackStyle, minimumTrackStyle, maxTrack]}
         />
-        {(this.props.value > this.props.limitValue) && thumbLimit && (<Animated.View
-          onLayout={this._measureThumb}
-          style={[
-            { backgroundColor: limitThumbTintColor },
-            mainStyles.thumb,
-            thumbStyle,
-            {
-              transform: [{ translateX: thumbLimit }, { translateY: 0 }],
-              ...valueVisibleStyle,
-            },
-          ]}
-        >
-          {this._createWrappedThumbView(<View/>)}
-        </Animated.View>)}
+        {(this.props.value > this.props.limitValue) && thumbLimit &&
+          <Animated.View
+            onLayout={this._measureThumb}
+            style={[
+              { backgroundColor: limitThumbTintColor },
+              mainStyles.thumb,
+              thumbStyle,
+              {
+                transform: [{ translateX: thumbLimit }, { translateY: 0 }],
+                ...valueVisibleStyle,
+              },
+            ]}
+          />
+        }
         <Animated.View
           onLayout={this._measureThumb}
           style={[
@@ -333,16 +333,8 @@ export default class Slider extends PureComponent {
             },
           ]}
         >
-          {(this.props.value <= (this.props.limitValue || this.props.value)) && this._createWrappedThumbView(<View/>)}
+          {this._createWrappedThumbView(<View/>)}
         </Animated.View>
-        <View
-          renderToHardwareTextureAndroid
-          style={[defaultStyles.touchArea, touchOverflowStyle]}
-          {...this._panResponder.panHandlers}
-        >
-          {debugTouchArea === true &&
-            this._renderDebugThumbTouchRect(minimumTrackWidth)}
-        </View>
       </View>
     );
   }
@@ -607,13 +599,11 @@ var defaultStyles = StyleSheet.create({
   },
   track: {
     height: TRACK_SIZE,
-    borderRadius: TRACK_SIZE / 2,
   },
   thumb: {
     position: 'absolute',
     width: THUMB_SIZE,
     height: THUMB_SIZE,
-    borderRadius: THUMB_SIZE / 2,
   },
   touchArea: {
     position: 'absolute',
