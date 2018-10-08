@@ -301,7 +301,6 @@ export default class Slider extends PureComponent {
             mainStyles.track,
             trackStyle,
           ]}
-          renderToHardwareTextureAndroid
           onLayout={this._measureTrack}
         />
         <Animated.View

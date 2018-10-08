@@ -26,52 +26,50 @@ npm i --save react-native-slider
 | <0.25.0                 | <0.7.0                                    |
 | v0.25.x                 | v0.7.x                                    |
 | v0.26.0+                | v0.8.x                                    |
+| v0.43.0+                | v0.10.x                                   |
+| v0.44.0+                | v0.11.x                                   |
 
 ## Usage
 
 ```jsx
-'use strict';
+import React from "react";
+import Slider from "react-native-slider";
+import { AppRegistry, StyleSheet, View, Text } from "react-native";
 
-var React = require('react');
-var Slider = require('react-native-slider');
-var {
-  AppRegistry,
-  StyleSheet,
-  View,
-  Text,
-} = require('react-native');
-
-var SliderExample = React.createClass({
-  getInitialState() {
-    return {
-      value: 0.2,
-    };
-  },
+class SliderExample extends React.Component {
+  state = {
+    value: 0.2
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <Slider
           value={this.state.value}
-          onValueChange={(value) => this.setState({value})} />
-        <Text>Value: {this.state.value}</Text>
+          onValueChange={value => this.setState({ value })}
+        />
+        <Text>
+          Value: {this.state.value}
+        </Text>
       </View>
     );
   }
-});
+}
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 10,
     marginRight: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-  },
+    alignItems: "stretch",
+    justifyContent: "center"
+  }
 });
 
-AppRegistry.registerComponent('SliderExample', () => SliderExample);
+AppRegistry.registerComponent("SliderExample", () => SliderExample);
 ```
+
+Try this example [live on Expo Snack](https://snack.expo.io/HkbAqpbwb).
 
 ## Props
 
@@ -92,6 +90,7 @@ onSlidingComplete     | function | Yes      |                           | Callba
 style                 | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the slider container
 trackStyle            | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the track
 thumbStyle            | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the thumb
+thumbImage            | [source](http://facebook.github.io/react-native/docs/image.html#source)    | Yes      |                           | Sets an image for the thumb.
 debugTouchArea        | bool     | Yes      | false                     | Set this to true to visually see the thumb touch rect in green.
 animateTransitions    | bool     | Yes      | false                     | Set to true if you want to use the default 'spring' animation
 animationType         | string   | Yes      | 'timing'                  | Set to 'spring' or 'timing' to use one of those two types of animations with the default [animation properties](https://facebook.github.io/react-native/docs/animations.html).
